@@ -27,7 +27,7 @@ The corresponding manuscript is under editorial processing by American Journal o
 
 Two custom R packages must be installed before running the R scripts provided in this repository.
 
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 ## Install devtools (if you do not have it already)
 install.packages("devtools")
 ## Install the data generation package
@@ -38,7 +38,7 @@ devtools::install_github(repo = "kaz-yos/trim3")
 
 ** Data generation
 Running the following will generate data files under the =data/= folder using 8 cores.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 Rscript ./01_generate_data.R 8
 #+END_SRC
 
@@ -49,7 +49,7 @@ sh ./01_generate_data_o2.sh
 
 ** Data preparation
 Running the following will process the specified data file and generate a new file with the same name except that raw changes to prepared.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 Rscript ./02_prepare_data.R ./data/scenario_raw001_part001_r50.RData 8
 #+END_SRC
 
@@ -60,7 +60,7 @@ sh ./02_prepare_data_o2.sh ./data/scenario_raw*
 
 ** Data analysis
 Running the following will analyze the specified data file and generate a new file with the same name except that prepared changes to analyzed.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 Rscript ./03_analyze_data.R ./data/scenario_prepared001_part001_r50.RData 8
 #+END_SRC
 
@@ -71,7 +71,7 @@ sh ./03_analyze_data_o2.sh ./data/scenario_prepared*
 
 ** Result aggregation
 Running the following will aggregate all the analyzed data files under =data/= and generate a new file named =all_analysis_results.RData=.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 Rscript ./04_aggregate_results.R 1
 #+END_SRC
 
@@ -82,7 +82,7 @@ sh ./04_aggregate_results_o2.sh
 
 ** Result summarization
 Running the following will summarize the results and generate a new file named =all_analysis_summary.RData=.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 Rscript ./05_summarize_results.R ./data/all_analysis_results.RData 1
 #+END_SRC
 
@@ -93,7 +93,7 @@ sh ./05_summarize_results_o2.sh ./data/all_analysis_results.RData
 
 ** Assessment
 Running the following will create figures under =out/=.
-#+BEGIN_SRC R
+#+BEGIN_SRC sh
 ./Rscriptee ./06_assess_results.R ./data/all_analysis_summary.RData 1
 #+END_SRC
 
