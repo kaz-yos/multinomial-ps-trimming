@@ -1,0 +1,503 @@
+### Running: /Library/Frameworks/R.framework/Resources/bin/exec/R --slave --no-restore --file=06_assess_results.R --args ./data/all_analysis_summary.RData 1 
+### Started  2018-11-27 13:52:42 
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: parallel
+Loading required package: rngtools
+Loading required package: pkgmaker
+Loading required package: registry
+
+Attaching package: ‘pkgmaker’
+
+The following object is masked from ‘package:base’:
+
+    isFALSE
+
+### Using 1 cores
+### Using doParallelMC as backend
+── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+✔ tibble  1.4.2     ✔ dplyr   0.7.8
+✔ tidyr   0.8.2     ✔ stringr 1.3.1
+✔ readr   1.2.1     ✔ forcats 0.3.0
+── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ purrr::accumulate() masks foreach::accumulate()
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::lag()        masks stats::lag()
+✖ purrr::when()       masks foreach::when()
+
+###
+### Define functions
+################################################################################
+
+###
+### Load summary
+################################################################################
+###  Loading ./data/all_analysis_summary.RData 
+215 kB
+# A tibble: 72 x 3
+     `#`
+   <int>
+ 1     1
+ 2     2
+ 3     3
+ 4     4
+ 5     5
+ 6     6
+ 7     7
+ 8     8
+ 9     9
+10    10
+11    11
+12    12
+13    13
+14    14
+15    15
+16    16
+17    17
+18    18
+19    19
+20    20
+21    21
+22    22
+23    23
+24    24
+25    25
+26    26
+27    27
+28    28
+29    29
+30    30
+31    31
+32    32
+33    33
+34    34
+35    35
+36    36
+37    37
+38    38
+39    39
+40    40
+41    41
+42    42
+43    43
+44    44
+45    45
+46    46
+47    47
+48    48
+49    49
+50    50
+51    51
+52    52
+53    53
+54    54
+55    55
+56    56
+57    57
+58    58
+59    59
+60    60
+61    61
+62    62
+63    63
+64    64
+65    65
+66    66
+67    67
+68    68
+69    69
+70    70
+71    71
+72    72
+   scenario_description                                                                             
+   <chr>                                                                                            
+ 1 n=6000;33:33:33;Rare outcome;No main effect;No unmeasured confounding;No modification            
+ 2 n=6000;10:45:45;Rare outcome;No main effect;No unmeasured confounding;No modification            
+ 3 n=6000;10:10:80;Rare outcome;No main effect;No unmeasured confounding;No modification            
+ 4 n=6000;33:33:33;Common outcome;No main effect;No unmeasured confounding;No modification          
+ 5 n=6000;10:45:45;Common outcome;No main effect;No unmeasured confounding;No modification          
+ 6 n=6000;10:10:80;Common outcome;No main effect;No unmeasured confounding;No modification          
+ 7 n=6000;33:33:33;Rare outcome;Protective main effect;No unmeasured confounding;No modification    
+ 8 n=6000;10:45:45;Rare outcome;Protective main effect;No unmeasured confounding;No modification    
+ 9 n=6000;10:10:80;Rare outcome;Protective main effect;No unmeasured confounding;No modification    
+10 n=6000;33:33:33;Common outcome;Protective main effect;No unmeasured confounding;No modification  
+11 n=6000;10:45:45;Common outcome;Protective main effect;No unmeasured confounding;No modification  
+12 n=6000;10:10:80;Common outcome;Protective main effect;No unmeasured confounding;No modification  
+13 n=6000;33:33:33;Rare outcome;No main effect;Moderate unmeasured confounding;No modification      
+14 n=6000;10:45:45;Rare outcome;No main effect;Moderate unmeasured confounding;No modification      
+15 n=6000;10:10:80;Rare outcome;No main effect;Moderate unmeasured confounding;No modification      
+16 n=6000;33:33:33;Common outcome;No main effect;Moderate unmeasured confounding;No modification    
+17 n=6000;10:45:45;Common outcome;No main effect;Moderate unmeasured confounding;No modification    
+18 n=6000;10:10:80;Common outcome;No main effect;Moderate unmeasured confounding;No modification    
+19 n=6000;33:33:33;Rare outcome;Protective main effect;Moderate unmeasured confounding;No modificat…
+20 n=6000;10:45:45;Rare outcome;Protective main effect;Moderate unmeasured confounding;No modificat…
+21 n=6000;10:10:80;Rare outcome;Protective main effect;Moderate unmeasured confounding;No modificat…
+22 n=6000;33:33:33;Common outcome;Protective main effect;Moderate unmeasured confounding;No modific…
+23 n=6000;10:45:45;Common outcome;Protective main effect;Moderate unmeasured confounding;No modific…
+24 n=6000;10:10:80;Common outcome;Protective main effect;Moderate unmeasured confounding;No modific…
+25 n=6000;33:33:33;Rare outcome;No main effect;Strong unmeasured confounding;No modification        
+26 n=6000;10:45:45;Rare outcome;No main effect;Strong unmeasured confounding;No modification        
+27 n=6000;10:10:80;Rare outcome;No main effect;Strong unmeasured confounding;No modification        
+28 n=6000;33:33:33;Common outcome;No main effect;Strong unmeasured confounding;No modification      
+29 n=6000;10:45:45;Common outcome;No main effect;Strong unmeasured confounding;No modification      
+30 n=6000;10:10:80;Common outcome;No main effect;Strong unmeasured confounding;No modification      
+31 n=6000;33:33:33;Rare outcome;Protective main effect;Strong unmeasured confounding;No modification
+32 n=6000;10:45:45;Rare outcome;Protective main effect;Strong unmeasured confounding;No modification
+33 n=6000;10:10:80;Rare outcome;Protective main effect;Strong unmeasured confounding;No modification
+34 n=6000;33:33:33;Common outcome;Protective main effect;Strong unmeasured confounding;No modificat…
+35 n=6000;10:45:45;Common outcome;Protective main effect;Strong unmeasured confounding;No modificat…
+36 n=6000;10:10:80;Common outcome;Protective main effect;Strong unmeasured confounding;No modificat…
+37 n=6000;33:33:33;Rare outcome;No main effect;No unmeasured confounding;Protective modification by…
+38 n=6000;10:45:45;Rare outcome;No main effect;No unmeasured confounding;Protective modification by…
+39 n=6000;10:10:80;Rare outcome;No main effect;No unmeasured confounding;Protective modification by…
+40 n=6000;33:33:33;Common outcome;No main effect;No unmeasured confounding;Protective modification …
+41 n=6000;10:45:45;Common outcome;No main effect;No unmeasured confounding;Protective modification …
+42 n=6000;10:10:80;Common outcome;No main effect;No unmeasured confounding;Protective modification …
+43 n=6000;33:33:33;Rare outcome;Protective main effect;No unmeasured confounding;Protective modific…
+44 n=6000;10:45:45;Rare outcome;Protective main effect;No unmeasured confounding;Protective modific…
+45 n=6000;10:10:80;Rare outcome;Protective main effect;No unmeasured confounding;Protective modific…
+46 n=6000;33:33:33;Common outcome;Protective main effect;No unmeasured confounding;Protective modif…
+47 n=6000;10:45:45;Common outcome;Protective main effect;No unmeasured confounding;Protective modif…
+48 n=6000;10:10:80;Common outcome;Protective main effect;No unmeasured confounding;Protective modif…
+49 n=6000;33:33:33;Rare outcome;No main effect;Moderate unmeasured confounding;Protective modificat…
+50 n=6000;10:45:45;Rare outcome;No main effect;Moderate unmeasured confounding;Protective modificat…
+51 n=6000;10:10:80;Rare outcome;No main effect;Moderate unmeasured confounding;Protective modificat…
+52 n=6000;33:33:33;Common outcome;No main effect;Moderate unmeasured confounding;Protective modific…
+53 n=6000;10:45:45;Common outcome;No main effect;Moderate unmeasured confounding;Protective modific…
+54 n=6000;10:10:80;Common outcome;No main effect;Moderate unmeasured confounding;Protective modific…
+55 n=6000;33:33:33;Rare outcome;Protective main effect;Moderate unmeasured confounding;Protective m…
+56 n=6000;10:45:45;Rare outcome;Protective main effect;Moderate unmeasured confounding;Protective m…
+57 n=6000;10:10:80;Rare outcome;Protective main effect;Moderate unmeasured confounding;Protective m…
+58 n=6000;33:33:33;Common outcome;Protective main effect;Moderate unmeasured confounding;Protective…
+59 n=6000;10:45:45;Common outcome;Protective main effect;Moderate unmeasured confounding;Protective…
+60 n=6000;10:10:80;Common outcome;Protective main effect;Moderate unmeasured confounding;Protective…
+61 n=6000;33:33:33;Rare outcome;No main effect;Strong unmeasured confounding;Protective modificatio…
+62 n=6000;10:45:45;Rare outcome;No main effect;Strong unmeasured confounding;Protective modificatio…
+63 n=6000;10:10:80;Rare outcome;No main effect;Strong unmeasured confounding;Protective modificatio…
+64 n=6000;33:33:33;Common outcome;No main effect;Strong unmeasured confounding;Protective modificat…
+65 n=6000;10:45:45;Common outcome;No main effect;Strong unmeasured confounding;Protective modificat…
+66 n=6000;10:10:80;Common outcome;No main effect;Strong unmeasured confounding;Protective modificat…
+67 n=6000;33:33:33;Rare outcome;Protective main effect;Strong unmeasured confounding;Protective mod…
+68 n=6000;10:45:45;Rare outcome;Protective main effect;Strong unmeasured confounding;Protective mod…
+69 n=6000;10:10:80;Rare outcome;Protective main effect;Strong unmeasured confounding;Protective mod…
+70 n=6000;33:33:33;Common outcome;Protective main effect;Strong unmeasured confounding;Protective m…
+71 n=6000;10:45:45;Common outcome;Protective main effect;Strong unmeasured confounding;Protective m…
+72 n=6000;10:10:80;Common outcome;Protective main effect;Strong unmeasured confounding;Protective m…
+   scenario        
+   <list>          
+ 1 <tibble [1 × 8]>
+ 2 <tibble [1 × 8]>
+ 3 <tibble [1 × 8]>
+ 4 <tibble [1 × 8]>
+ 5 <tibble [1 × 8]>
+ 6 <tibble [1 × 8]>
+ 7 <tibble [1 × 8]>
+ 8 <tibble [1 × 8]>
+ 9 <tibble [1 × 8]>
+10 <tibble [1 × 8]>
+11 <tibble [1 × 8]>
+12 <tibble [1 × 8]>
+13 <tibble [1 × 8]>
+14 <tibble [1 × 8]>
+15 <tibble [1 × 8]>
+16 <tibble [1 × 8]>
+17 <tibble [1 × 8]>
+18 <tibble [1 × 8]>
+19 <tibble [1 × 8]>
+20 <tibble [1 × 8]>
+21 <tibble [1 × 8]>
+22 <tibble [1 × 8]>
+23 <tibble [1 × 8]>
+24 <tibble [1 × 8]>
+25 <tibble [1 × 8]>
+26 <tibble [1 × 8]>
+27 <tibble [1 × 8]>
+28 <tibble [1 × 8]>
+29 <tibble [1 × 8]>
+30 <tibble [1 × 8]>
+31 <tibble [1 × 8]>
+32 <tibble [1 × 8]>
+33 <tibble [1 × 8]>
+34 <tibble [1 × 8]>
+35 <tibble [1 × 8]>
+36 <tibble [1 × 8]>
+37 <tibble [1 × 8]>
+38 <tibble [1 × 8]>
+39 <tibble [1 × 8]>
+40 <tibble [1 × 8]>
+41 <tibble [1 × 8]>
+42 <tibble [1 × 8]>
+43 <tibble [1 × 8]>
+44 <tibble [1 × 8]>
+45 <tibble [1 × 8]>
+46 <tibble [1 × 8]>
+47 <tibble [1 × 8]>
+48 <tibble [1 × 8]>
+49 <tibble [1 × 8]>
+50 <tibble [1 × 8]>
+51 <tibble [1 × 8]>
+52 <tibble [1 × 8]>
+53 <tibble [1 × 8]>
+54 <tibble [1 × 8]>
+55 <tibble [1 × 8]>
+56 <tibble [1 × 8]>
+57 <tibble [1 × 8]>
+58 <tibble [1 × 8]>
+59 <tibble [1 × 8]>
+60 <tibble [1 × 8]>
+61 <tibble [1 × 8]>
+62 <tibble [1 × 8]>
+63 <tibble [1 × 8]>
+64 <tibble [1 × 8]>
+65 <tibble [1 × 8]>
+66 <tibble [1 × 8]>
+67 <tibble [1 × 8]>
+68 <tibble [1 × 8]>
+69 <tibble [1 × 8]>
+70 <tibble [1 × 8]>
+71 <tibble [1 × 8]>
+72 <tibble [1 × 8]>
+26.1 MB
+# A tibble: 145,152 x 24
+   scenario_count trim_method_name  thres adjustment reest true  measure contrast      mean      var
+            <int> <chr>             <dbl> <chr>      <lgl> <lgl> <chr>   <chr>        <dbl>    <dbl>
+ 1              1 crump            0.0167 iptw       FALSE FALSE coef    1vs0     -5.56e- 2 1.77e- 2
+ 2              1 crump            0.0167 iptw       FALSE FALSE coef    2vs0      9.03e- 2 4.51e- 2
+ 3              1 crump            0.0167 iptw       FALSE FALSE coef    2vs1      1.46e- 1 4.38e- 2
+ 4              1 crump            0.0167 iptw       FALSE FALSE var     1vs0      1.76e- 2 6.82e- 6
+ 5              1 crump            0.0167 iptw       FALSE FALSE var     2vs0      4.18e- 2 1.82e- 4
+ 6              1 crump            0.0167 iptw       FALSE FALSE var     2vs1      4.20e- 2 1.87e- 4
+ 7              1 crump            0.0167 iptw       FALSE TRUE  coef    1vs0     -5.20e-19 7.65e-33
+ 8              1 crump            0.0167 iptw       FALSE TRUE  coef    2vs0     -2.36e-18 6.48e-33
+ 9              1 crump            0.0167 iptw       FALSE TRUE  coef    2vs1     -1.84e-18 5.71e-33
+10              1 crump            0.0167 iptw       FALSE TRUE  var     1vs0      2.10e- 3 1.99e- 6
+11              1 crump            0.0167 iptw       FALSE TRUE  var     2vs0      2.10e- 3 1.99e- 6
+12              1 crump            0.0167 iptw       FALSE TRUE  var     2vs1      2.10e- 3 1.99e- 6
+13              1 crump            0.0167 iptw       TRUE  FALSE coef    1vs0     -8.75e- 2 1.81e- 2
+14              1 crump            0.0167 iptw       TRUE  FALSE coef    2vs0      1.23e- 1 4.87e- 2
+15              1 crump            0.0167 iptw       TRUE  FALSE coef    2vs1      2.11e- 1 4.76e- 2
+16              1 crump            0.0167 iptw       TRUE  FALSE var     1vs0      1.84e- 2 1.10e- 5
+17              1 crump            0.0167 iptw       TRUE  FALSE var     2vs0      4.47e- 2 2.39e- 4
+18              1 crump            0.0167 iptw       TRUE  FALSE var     2vs1      4.56e- 2 2.50e- 4
+19              1 crump            0.0167 iptw       TRUE  TRUE  coef    1vs0      2.94e-18 9.01e-33
+20              1 crump            0.0167 iptw       TRUE  TRUE  coef    2vs0      5.15e-18 7.19e-33
+# ... with 1.451e+05 more rows, and 14 more variables: sd <dbl>, mean_n_kept <dbl>,
+#   mean_n0_kept <dbl>, mean_n1_kept <dbl>, mean_n2_kept <dbl>, min_n_kept <dbl>,
+#   min_n0_kept <dbl>, min_n1_kept <dbl>, min_n2_kept <dbl>, max_n_kept <dbl>, max_n0_kept <dbl>,
+#   max_n1_kept <dbl>, max_n2_kept <dbl>, scenario_description <chr>
+
+###
+### Split description for easier use
+################################################################################
+
+###
+### Make no trimming contribute as Crump 0, Sturmer 0, Walker 0
+################################################################################
+
+###
+### Sanity check results for the correctness of true results
+################################################################################
+###  Examine scenario 1 results 
+# A tibble: 1 x 3
+  scenario_count scenario_description                                                 scenario     
+           <int> <chr>                                                                <list>       
+1              1 n=6000;33:33:33;Rare outcome;No main effect;No unmeasured confoundi… <tibble [1 ×…
+###   No trimming (use Crump 0) 
+# A tibble: 42 x 29
+   scenario_count trim_method_name thres adjustment reest true  measure contrast   mean   var
+            <int> <fct>            <dbl> <fct>      <lgl> <lgl> <chr>   <chr>     <dbl> <dbl>
+ 1              1 Crump                0 IPTW       FALSE FALSE coef    1vs0     -0.15  0.018
+ 2              1 Crump                0 IPTW       FALSE FALSE coef    2vs0      0.144 0.064
+ 3              1 Crump                0 IPTW       FALSE FALSE coef    2vs1      0.294 0.064
+ 4              1 Crump                0 IPTW       FALSE TRUE  coef    1vs0      0     0    
+ 5              1 Crump                0 IPTW       FALSE TRUE  coef    2vs0      0     0    
+ 6              1 Crump                0 IPTW       FALSE TRUE  coef    2vs1      0     0    
+ 7              1 Crump                0 IPTW       TRUE  FALSE coef    1vs0     -0.15  0.018
+ 8              1 Crump                0 IPTW       TRUE  FALSE coef    2vs0      0.144 0.064
+ 9              1 Crump                0 IPTW       TRUE  FALSE coef    2vs1      0.294 0.064
+10              1 Crump                0 IPTW       TRUE  TRUE  coef    1vs0      0     0    
+11              1 Crump                0 IPTW       TRUE  TRUE  coef    2vs0      0     0    
+12              1 Crump                0 IPTW       TRUE  TRUE  coef    2vs1      0     0    
+13              1 Crump                0 MW         FALSE FALSE coef    1vs0      0.037 0.018
+14              1 Crump                0 MW         FALSE FALSE coef    2vs0      0.012 0.024
+15              1 Crump                0 MW         FALSE FALSE coef    2vs1     -0.025 0.026
+16              1 Crump                0 MW         FALSE TRUE  coef    1vs0      0     0    
+17              1 Crump                0 MW         FALSE TRUE  coef    2vs0      0     0    
+18              1 Crump                0 MW         FALSE TRUE  coef    2vs1      0     0    
+19              1 Crump                0 MW         TRUE  FALSE coef    1vs0      0.037 0.018
+20              1 Crump                0 MW         TRUE  FALSE coef    2vs0      0.012 0.024
+21              1 Crump                0 MW         TRUE  FALSE coef    2vs1     -0.025 0.026
+22              1 Crump                0 MW         TRUE  TRUE  coef    1vs0      0     0    
+23              1 Crump                0 MW         TRUE  TRUE  coef    2vs0      0     0    
+24              1 Crump                0 MW         TRUE  TRUE  coef    2vs1      0     0    
+25              1 Crump                0 OW         FALSE FALSE coef    1vs0      0.024 0.016
+26              1 Crump                0 OW         FALSE FALSE coef    2vs0      0.03  0.026
+27              1 Crump                0 OW         FALSE FALSE coef    2vs1      0.007 0.026
+28              1 Crump                0 OW         FALSE TRUE  coef    1vs0      0     0    
+29              1 Crump                0 OW         FALSE TRUE  coef    2vs0      0     0    
+30              1 Crump                0 OW         FALSE TRUE  coef    2vs1      0     0    
+31              1 Crump                0 OW         TRUE  FALSE coef    1vs0      0.024 0.016
+32              1 Crump                0 OW         TRUE  FALSE coef    2vs0      0.03  0.026
+33              1 Crump                0 OW         TRUE  FALSE coef    2vs1      0.007 0.026
+34              1 Crump                0 OW         TRUE  TRUE  coef    1vs0      0     0    
+35              1 Crump                0 OW         TRUE  TRUE  coef    2vs0      0     0    
+36              1 Crump                0 OW         TRUE  TRUE  coef    2vs1      0     0    
+37              1 Crump                0 Unadj      FALSE FALSE coef    1vs0      0.37  0.014
+38              1 Crump                0 Unadj      FALSE FALSE coef    2vs0     -0.499 0.02 
+39              1 Crump                0 Unadj      FALSE FALSE coef    2vs1     -0.869 0.02 
+40              1 Crump                0 Unadj      FALSE TRUE  coef    1vs0      0     0    
+41              1 Crump                0 Unadj      FALSE TRUE  coef    2vs0      0     0    
+42              1 Crump                0 Unadj      FALSE TRUE  coef    2vs1      0     0    
+# ... with 19 more variables: sd <dbl>, mean_n_kept <dbl>, mean_n0_kept <dbl>, mean_n1_kept <dbl>,
+#   mean_n2_kept <dbl>, min_n_kept <dbl>, min_n0_kept <dbl>, min_n1_kept <dbl>, min_n2_kept <dbl>,
+#   max_n_kept <dbl>, max_n0_kept <dbl>, max_n1_kept <dbl>, max_n2_kept <dbl>, n <dbl>,
+#   prevalence <fct>, incidence <fct>, main <fct>, unmeasured <fct>, modification <fct>
+###  Examine scenario 4 results 
+# A tibble: 1 x 3
+  scenario_count scenario_description                                                 scenario     
+           <int> <chr>                                                                <list>       
+1              4 n=6000;33:33:33;Common outcome;No main effect;No unmeasured confoun… <tibble [1 ×…
+###   No trimming 
+# A tibble: 42 x 29
+   scenario_count trim_method_name thres adjustment reest true  measure contrast   mean   var
+            <int> <fct>            <dbl> <fct>      <lgl> <lgl> <chr>   <chr>     <dbl> <dbl>
+ 1              4 Crump                0 IPTW       FALSE FALSE coef    1vs0     -0.161 0.007
+ 2              4 Crump                0 IPTW       FALSE FALSE coef    2vs0      0.144 0.024
+ 3              4 Crump                0 IPTW       FALSE FALSE coef    2vs1      0.305 0.024
+ 4              4 Crump                0 IPTW       FALSE TRUE  coef    1vs0      0     0    
+ 5              4 Crump                0 IPTW       FALSE TRUE  coef    2vs0      0     0    
+ 6              4 Crump                0 IPTW       FALSE TRUE  coef    2vs1      0     0    
+ 7              4 Crump                0 IPTW       TRUE  FALSE coef    1vs0     -0.161 0.007
+ 8              4 Crump                0 IPTW       TRUE  FALSE coef    2vs0      0.144 0.024
+ 9              4 Crump                0 IPTW       TRUE  FALSE coef    2vs1      0.305 0.024
+10              4 Crump                0 IPTW       TRUE  TRUE  coef    1vs0      0     0    
+11              4 Crump                0 IPTW       TRUE  TRUE  coef    2vs0      0     0    
+12              4 Crump                0 IPTW       TRUE  TRUE  coef    2vs1      0     0    
+13              4 Crump                0 MW         FALSE FALSE coef    1vs0      0.032 0.005
+14              4 Crump                0 MW         FALSE FALSE coef    2vs0      0.006 0.007
+15              4 Crump                0 MW         FALSE FALSE coef    2vs1     -0.026 0.007
+16              4 Crump                0 MW         FALSE TRUE  coef    1vs0      0     0    
+17              4 Crump                0 MW         FALSE TRUE  coef    2vs0      0     0    
+18              4 Crump                0 MW         FALSE TRUE  coef    2vs1      0     0    
+19              4 Crump                0 MW         TRUE  FALSE coef    1vs0      0.032 0.005
+20              4 Crump                0 MW         TRUE  FALSE coef    2vs0      0.006 0.007
+21              4 Crump                0 MW         TRUE  FALSE coef    2vs1     -0.026 0.007
+22              4 Crump                0 MW         TRUE  TRUE  coef    1vs0      0     0    
+23              4 Crump                0 MW         TRUE  TRUE  coef    2vs0      0     0    
+24              4 Crump                0 MW         TRUE  TRUE  coef    2vs1      0     0    
+25              4 Crump                0 OW         FALSE FALSE coef    1vs0      0.017 0.004
+26              4 Crump                0 OW         FALSE FALSE coef    2vs0      0.025 0.008
+27              4 Crump                0 OW         FALSE FALSE coef    2vs1      0.007 0.007
+28              4 Crump                0 OW         FALSE TRUE  coef    1vs0      0     0    
+29              4 Crump                0 OW         FALSE TRUE  coef    2vs0      0     0    
+30              4 Crump                0 OW         FALSE TRUE  coef    2vs1      0     0    
+31              4 Crump                0 OW         TRUE  FALSE coef    1vs0      0.017 0.004
+32              4 Crump                0 OW         TRUE  FALSE coef    2vs0      0.025 0.008
+33              4 Crump                0 OW         TRUE  FALSE coef    2vs1      0.007 0.007
+34              4 Crump                0 OW         TRUE  TRUE  coef    1vs0      0     0    
+35              4 Crump                0 OW         TRUE  TRUE  coef    2vs0      0     0    
+36              4 Crump                0 OW         TRUE  TRUE  coef    2vs1      0     0    
+37              4 Crump                0 Unadj      FALSE FALSE coef    1vs0      0.362 0.004
+38              4 Crump                0 Unadj      FALSE FALSE coef    2vs0     -0.504 0.007
+39              4 Crump                0 Unadj      FALSE FALSE coef    2vs1     -0.866 0.006
+40              4 Crump                0 Unadj      FALSE TRUE  coef    1vs0      0     0    
+41              4 Crump                0 Unadj      FALSE TRUE  coef    2vs0      0     0    
+42              4 Crump                0 Unadj      FALSE TRUE  coef    2vs1      0     0    
+# ... with 19 more variables: sd <dbl>, mean_n_kept <dbl>, mean_n0_kept <dbl>, mean_n1_kept <dbl>,
+#   mean_n2_kept <dbl>, min_n_kept <dbl>, min_n0_kept <dbl>, min_n1_kept <dbl>, min_n2_kept <dbl>,
+#   max_n_kept <dbl>, max_n0_kept <dbl>, max_n1_kept <dbl>, max_n2_kept <dbl>, n <dbl>,
+#   prevalence <fct>, incidence <fct>, main <fct>, unmeasured <fct>, modification <fct>
+
+###
+### Simplify data by restriction to some scenarios
+################################################################################
+###  filter(main == "Protective", modification == "No", incidence == "Common")
+###   9 scenarios
+
+###
+### Sample size calculation for the full cohort
+################################################################################
+###  Restrict to total size n * 1/10
+
+###
+### Bias calculation for mean coef (compare to corresponding true value)
+################################################################################
+
+###
+### MSE calculation for coef
+################################################################################
+[1] TRUE
+Joining, by = c("scenario_count", "trim_method_name", "thres", "adjustment", "reest", "measure", "contrast", "mean_n_kept", "mean_n0_kept", "mean_n1_kept", "mean_n2_kept", "min_n_kept", "min_n0_kept", "min_n1_kept", "min_n2_kept", "max_n_kept", "max_n0_kept", "max_n1_kept", "max_n2_kept", "n", "prevalence", "incidence", "main", "unmeasured", "modification")
+
+###
+### Preliminary plotting
+################################################################################
+Joining, by = "trim_method_name"
+null device 
+          1 
+# A tibble: 3 x 9
+  main   modification incidence trim_method_name data  tentative_thres title_string gg    file_name
+  <fct>  <fct>        <fct>     <fct>            <lis>           <dbl> <chr>        <lis> <list>   
+1 Prote… No           Common    Crump            <tib…          0.0667 A            <S3:… <chr [1]>
+2 Prote… No           Common    Sturmer          <tib…          0.0333 B            <S3:… <chr [1]>
+3 Prote… No           Common    Walker           <tib…          0.2    C            <S3:… <chr [1]>
+[[1]]
+
+[[1]]
+
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+
+###
+### Record package versions etc
+################################################################################
+R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.1
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      parallel  stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] bindrcpp_0.2.2    gtable_0.2.0      forcats_0.3.0     stringr_1.3.1     dplyr_0.7.8      
+ [6] purrr_0.2.5       readr_1.2.1       tidyr_0.8.2       tibble_1.4.2      ggplot2_3.1.0    
+[11] tidyverse_1.2.1   doRNG_1.7.1       rngtools_1.3.1    pkgmaker_0.27     registry_0.5     
+[16] doParallel_1.0.14 iterators_1.0.10  foreach_1.4.4    
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5 reshape2_1.4.3   haven_2.0.0      lattice_0.20-38  colorspace_1.3-2
+ [6] utf8_1.1.4       rlang_0.3.0.1    pillar_1.3.0     glue_1.3.0       withr_2.1.2     
+[11] pryr_0.1.4       modelr_0.1.2     readxl_1.1.0     bindr_0.1.1      plyr_1.8.4      
+[16] munsell_0.5.0    cellranger_1.1.0 rvest_0.3.2      codetools_0.2-15 labeling_0.3    
+[21] fansi_0.4.0      broom_0.5.0      Rcpp_1.0.0       xtable_1.8-3     backports_1.1.2 
+[26] scales_1.0.0     jsonlite_1.5     gridExtra_2.3    hms_0.4.2        digest_0.6.18   
+[31] stringi_1.2.4    bibtex_0.4.2     cli_1.0.1        tools_3.5.1      magrittr_1.5    
+[36] lazyeval_0.2.1   crayon_1.3.4     pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
+[41] rstudioapi_0.8   assertthat_0.2.0 httr_1.3.1       R6_2.3.0         nlme_3.1-137    
+[46] compiler_3.5.1  
+
+### Started   2018-11-27 13:52:42 
+### Finished  2018-11-27 13:54:36 
+Time difference of 1.896679 mins
