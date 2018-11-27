@@ -14,5 +14,89 @@ The corresponding poster presented at ICPE 2018 is at: [[https://github.com/kaz-
 The corresponding manuscript is under editorial processing by American Journal of Epidemiology.
 
 
+* Files and folders
+
+- =*.R=: Main R script files for generating simulation data, analyzing data, and reporting results. Execution each file will generate a plain text report file named *.R.txt
+- =*_o2.sh=: Example parallelization shell scripts for the Linux SLURM batch job system. These are designed for Harvard Medical School's O2 cluster specifically, and are not expected to work without modification elsewhere.
+- =data/=: Folder for simulation data. Due to file size issues, only the analysis result files sufficient for running =06_assess_results.R= is kept.
+- =log/=: Folder for log files.
+- =out/=: Folder for figure PDFs.
+
+* Simulation
+** Installation
+
+Two custom R packages must be installed before running the R scripts provided in this repository.
+
+#+BEGIN_SRC R
+## Install devtools (if you do not have it already)
+install.packages("devtools")
+## Install the data generation package
+devtools::install_github(repo = "kaz-yos/datagen3")
+## Install the simulation package
+devtools::install_github(repo = "kaz-yos/trim3")
+#+END_SRC
+
+** Data generation
+Running the following will generate data files under the =data/= folder using 8 cores.
+#+BEGIN_SRC R
+Rscript ./01_generate_data.R 8
+#+END_SRC
+
+If you have access to a SLURM-based computing cluster, the following can be used with appropriate modifications to the shell script.
+#+BEGIN_SRC sh
+sh ./01_generate_data_o2.sh
+#+END_SRC
+
+** Data preparation
+Running the following will process the specified data file and generate a new file with the same name except that raw changes to prepared.
+#+BEGIN_SRC R
+Rscript ./02_prepare_data.R ./data/scenario_raw001_part001_r50.RData 8
+#+END_SRC
+
+If you have access to a SLURM-based computing cluster, the following can be used with appropriate modifications to the shell script. This will dispatch a SLURM job for each file.
+#+BEGIN_SRC sh
+sh ./02_prepare_data_o2.sh ./data/scenario_raw*
+#+END_SRC
+
+** Data analysis
+Running the following will analyze the specified data file and generate a new file with the same name except that prepared changes to analyzed.
+#+BEGIN_SRC R
+Rscript ./03_analyze_data.R ./data/scenario_prepared001_part001_r50.RData 8
+#+END_SRC
+
+If you have access to a SLURM-based computing cluster, the following can be used with appropriate modifications to the shell script. This will dispatch a SLURM job for each file.
+#+BEGIN_SRC sh
+sh ./03_analyze_data_o2.sh ./data/scenario_prepared*
+#+END_SRC
+
+** Result aggregation
+Running the following will aggregate all the analyzed data files under =data/= and generate a new file named =all_analysis_results.RData=.
+#+BEGIN_SRC R
+Rscript ./04_aggregate_results.R 1
+#+END_SRC
+
+If you have access to a SLURM-based computing cluster, the following can be used with appropriate modifications to the shell script.
+#+BEGIN_SRC sh
+sh ./04_aggregate_results_o2.sh
+#+END_SRC
+
+** Result summarization
+Running the following will summarize the results and generate a new file named =all_analysis_summary.RData=.
+#+BEGIN_SRC R
+Rscript ./05_summarize_results.R ./data/all_analysis_results.RData 1
+#+END_SRC
+
+If you have access to a SLURM-based computing cluster, the following can be used with appropriate modifications to the shell script.
+#+BEGIN_SRC sh
+sh ./05_summarize_results_o2.sh ./data/all_analysis_results.RData
+#+END_SRC
+
+** Assessment
+Running the following will create figures under =out/=.
+#+BEGIN_SRC R
+./Rscriptee ./06_assess_results.R ./data/all_analysis_summary.RData 1
+#+END_SRC
+
+
 * Author
 [[https://twitter.com/kaz_yos][Kazuki Yoshida]] <kazukiyoshida@mail.harvard.edu>
