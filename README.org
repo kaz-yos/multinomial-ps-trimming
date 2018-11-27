@@ -1,4 +1,7 @@
 * Multinomial Propensity Score Trimming
+
+[[./src/title_figure.png]]
+
 This is the code repository for our upcoming paper on propensity score (PS) trimming in settings with multiple (3 or more) treatment groups. In this paper, we proposed definitions to extend three existing PS trimming methods ([[https://www.jstor.org/stable/27798811][Crump et al. Biometrika 2009;96:187]], [[https://www.ncbi.nlm.nih.gov/pubmed/20716704][Stürmer et al. Am J Epidemiol 2010;172:843]], and [[https://www.dovepress.com/a-tool-for-assessing-the-feasibility-of-comparative-effectiveness-rese-peer-reviewed-article-CER][Walker et al. Comp Eff Res 2013;3:11]]) for multinomial exposures.
 
 * Related resources

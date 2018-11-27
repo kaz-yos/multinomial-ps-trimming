@@ -4,8 +4,6 @@
 *.tar.gz
 .Rhistory
 .tramp_history
-*.png
-*.jpg
 *.doc*
 *.ppt*
 *.xls*
