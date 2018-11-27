@@ -1,24 +1,18 @@
 * Multinomial Propensity Score Trimming
-This is the code repository for our upcoming paper on propensity score (PS) trimming in settings with multiple (3 or more) treatment groups.
-
-
-In this paper, we proposed definitions to extend three existing PS trimming methods (Crump et al. Biometrika 2009;96:187, Stürmer et al. Am J Epidemiol 2010;172:843, and Walker et al. Comp Eff Res 2013;3:11) into the multinomial exposure setting.
+This is the code repository for our upcoming paper on propensity score (PS) trimming in settings with multiple (3 or more) treatment groups. In this paper, we proposed definitions to extend three existing PS trimming methods ([[https://www.jstor.org/stable/27798811][Crump et al. Biometrika 2009;96:187]], [[https://www.ncbi.nlm.nih.gov/pubmed/20716704][Stürmer et al. Am J Epidemiol 2010;172:843]], and [[https://www.dovepress.com/a-tool-for-assessing-the-feasibility-of-comparative-effectiveness-rese-peer-reviewed-article-CER][Walker et al. Comp Eff Res 2013;3:11]]) into the multinomial exposure setting.
 
 
 * Related resources
+- Paper: in press
+- ICPE 2018 poster: [[https://github.com/kaz-yos/icpe-2018-org-mode-poster]]
+- Web app: https://kaz-yos.shinyapps.io/shiny_trim_ternary/
+- Web app source code: https://github.com/kaz-yos/shiny-trim-ternary
 
-The web app is available at: https://kaz-yos.shinyapps.io/shiny_trim_ternary/.
+* Files and folders in this repo
 
-The corresponding poster presented at ICPE 2018 is at: [[https://github.com/kaz-yos/icpe-2018-org-mode-poster]].
-
-The corresponding manuscript is under editorial processing by American Journal of Epidemiology.
-
-
-* Files and folders
-
-- =*.R=: Main R script files for generating simulation data, analyzing data, and reporting results. Execution each file will generate a plain text report file named *.R.txt
-- =*_o2.sh=: Example parallelization shell scripts for the Linux SLURM batch job system. These are designed for Harvard Medical School's O2 cluster specifically, and are not expected to work without modification elsewhere.
-- =data/=: Folder for simulation data. Due to file size issues, only the analysis result files sufficient for running =06_assess_results.R= is kept.
+- =*.R=: Main R script files for generating simulation data, analyzing data, and reporting results. Execution each file will generate a plain text report file named *.R.txt under =log/=.
+- =*_o2.sh=: Example shell scripts for the Linux SLURM batch job system. These are designed for Harvard Medical School's O2 cluster specifically, and are not expected to work without modification elsewhere.
+- =data/=: Folder for simulation data. Due to file size issues, only the summary file for running =06_assess_results.R= is kept.
 - =log/=: Folder for log files.
 - =out/=: Folder for figure PDFs.
 
