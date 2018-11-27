@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# macOS
+# ln -s ./Rscriptee /usr/local/bin/
+
+# https://en.wikipedia.org/wiki/Tee_(command)
+# https://stackoverflow.com/questions/363223/how-do-i-get-both-stdout-and-stderr-to-go-to-the-terminal-and-a-log-file
+
+# Configure the original Rscript
+RSCRIPT_EXEC="Rscript"
+
+# First argument is file name
+RSCRIPT_FILE=$1
+OUTPUT_FILE="./log/${RSCRIPT_FILE}.txt"
+
+# All arguments are passed.
+# Both stdout and stderr are redirected.
+${RSCRIPT_EXEC} $@ 2>&1 | tee ${OUTPUT_FILE}
