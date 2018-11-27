@@ -1,0 +1,18 @@
+* Multinomial Propensity Score Trimming
+This is the code repository for our upcoming paper on propensity score (PS) trimming in settings with multiple (3 or more) treatment groups.
+
+
+In this paper, we proposed definitions to extend three existing PS trimming methods (Crump et al. Biometrika 2009;96:187, Stürmer et al. Am J Epidemiol 2010;172:843, and Walker et al. Comp Eff Res 2013;3:11) into the multinomial exposure setting.
+
+
+* Related resources
+
+The web app is available at: https://kaz-yos.shinyapps.io/shiny_trim_ternary/.
+
+The corresponding poster presented at ICPE 2018 is at: [[https://github.com/kaz-yos/icpe-2018-org-mode-poster]].
+
+The corresponding manuscript is under editorial processing by American Journal of Epidemiology.
+
+
+* Author
+[[https://twitter.com/kaz_yos][Kazuki Yoshida]] <kazukiyoshida@mail.harvard.edu>
